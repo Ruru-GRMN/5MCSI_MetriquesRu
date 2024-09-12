@@ -35,5 +35,31 @@ def mongraphique():
 def mon_histogramme():
     return render_template("histogramme.html")
 
+import requests
+from datetime import datetime
+from flask import jsonify
+
+@app.route("/commits/")
+def get_commits():
+    url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
+    response = requests.get(url)
+    commits_data = response.json()
+
+    # Extraire les minutes de chaque commit
+    commit_minutes = []
+    for commit in commits_data:
+        date_str = commit['commit']['author']['date']
+        date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+        commit_minutes.append(date_object.minute)
+
+    # Compter le nombre de commits pour chaque minute
+    minute_count = {}
+    for minute in commit_minutes:
+        minute_count[minute] = minute_count.get(minute, 0) + 1
+
+    # Préparer les données pour l'affichage du graphique
+    results = [{"minute": minute, "count": count} for minute, count in minute_count.items()]
+    return jsonify(results=results)
+
 if __name__ == "__main__":
   app.run(debug=True)
