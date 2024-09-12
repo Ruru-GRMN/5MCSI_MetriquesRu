@@ -47,5 +47,20 @@ def meteo():
 def mongraphique():
     return render_template("graphique.html")  # Assurez-vous que graphique.html existe
 
+def commits_graph():
+    return render_template('commits.html')  # Affiche la page avec le graphique
+
+# Route pour renvoyer les données des commits en format JSON
+@app.route("/commits_data/")
+def get_commits_data():
+    # Simulez des données de commit, ou connectez-vous à l'API GitHub si nécessaire
+    commit_data = [
+        {"minute": 23, "count": 3},
+        {"minute": 33, "count": 5},
+        {"minute": 45, "count": 2},
+        {"minute": 52, "count": 4}
+    ]
+    return jsonify(results=commit_data)
+
 if __name__ == "__main__":
     app.run(debug=True)
