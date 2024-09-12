@@ -12,7 +12,7 @@
       google.charts.setOnLoadCallback(drawCommitsChart);
 
       function drawCommitsChart() {
-        fetch('/commits/')
+        fetch('/commits_data/')
           .then(response => response.json())
           .then(data => {
             // Convertir les données en un tableau utilisable par Google Charts
@@ -39,4 +39,3 @@
     </script>
   </body>
 </html>
-
