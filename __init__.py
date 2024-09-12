@@ -23,8 +23,8 @@ def hello_world():
 
 # Route pour le formulaire de contact
 @app.route("/contact/")
-def MaPremiereAPI():
-    return render_template('formulaire.html')  # Assurez-vous que formulaire.html existe
+def mongraphique3():
+    return render_template("contact.html")
 
 # Route pour afficher les données météo de Tawarano
 @app.route('/tawarano/')
